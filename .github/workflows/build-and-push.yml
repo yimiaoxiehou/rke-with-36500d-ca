@@ -40,8 +40,8 @@ jobs:
           
       - uses: ncipollo/release-action@v1
         with:        
-          tag: $version
-          body: New Release $version
+          tag: ${{ github.env.version }}
+          body: New Release ${{ github.env.version }}
           artifacts: ./bin/rke
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
