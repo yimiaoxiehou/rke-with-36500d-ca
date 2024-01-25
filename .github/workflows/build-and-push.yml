@@ -39,10 +39,11 @@ jobs:
       - name: Build 
         # skiping fail on warning for now
         run: CI=false make
-          
-      - name: Upload release binaries
-        uses: alexellis/upload-assets@0.4.0
-        env:
-            GITHUB_TOKEN: ${{ secrets.TOKEN }}
-        with:
-            asset_paths: '["./bin/*"]'
+                  
+      - uses: ncipollo/release-action@v1
+        with:        
+            tag: v1.5
+            body: New Release.
+            artifacts: "./bin"
+            token: ${{ secrets.GITHUB_TOKEN }}
+            allowUpdates: true
