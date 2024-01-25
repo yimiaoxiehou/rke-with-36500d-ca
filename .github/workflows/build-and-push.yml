@@ -22,7 +22,7 @@ jobs:
 
       - name: get_version
         id: get_version
-        run: echo "version=$(git tag -l --contains HEAD | head -n 1)" >> $GITHUB_ENV
+        run: echo "version=$(git tag -l --contains HEAD | head -n 1)" >> "$GITHUB_OUTPUT"
     
       - name: replace_duration
         run: |
@@ -40,8 +40,8 @@ jobs:
           
       - uses: ncipollo/release-action@v1
         with:        
-          tag: ${{ github.env.version }}
-          body: New Release ${{ github.env.version }}
+          tag: ${{ steps.get_version.outputs.version }}
+          body: New Release ${{ steps.get_version.outputs.version }}
           artifacts: ./bin/rke
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
