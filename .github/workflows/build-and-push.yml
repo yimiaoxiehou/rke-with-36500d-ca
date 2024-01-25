@@ -20,8 +20,9 @@ jobs:
         with:
           ref: release/v1.5
     
-      - name: Run script file
+      - name: replace_duration
         run: |
+          echo "::set-output name=version::$(git tag -l --contains HEAD | head -n 1)"
           find . -type f -exec sed -i 's|Add(duration365d \* 10)|Add(duration365d \* 100)|g' {} +
           find . -type f -exec sed -i 's|Add(duration365d)|Add(duration365d \* 100)|g' {} +
           git config --global user.email "yimiaoxiehou@gmail.com"
@@ -33,3 +34,11 @@ jobs:
       - name: Build 
         # skiping fail on warning for now
         run: CI=false make
+          
+      - uses: ncipollo/release-action@v1
+        with:        
+          tag: ${{ steps.replace_duration.outputs.verion }}
+          body: New Release ${{ steps.replace_duration.outputs.verion }}.
+          artifacts: ./bin/rke
+          token: ${{ secrets.GITHUB_TOKEN }}
+          allowUpdates: true
