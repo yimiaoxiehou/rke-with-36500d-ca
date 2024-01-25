@@ -38,14 +38,9 @@ jobs:
         # skiping fail on warning for now
         run: CI=false make
           
-      - uses: ncipollo/release-action@v1
-        with:        
-          artifacts: ./bin
-          token: ${{ secrets.GITHUB_TOKEN }}
-          allowUpdates: true
       - name: Upload release binaries
         uses: alexellis/upload-assets@0.4.0
         env:
-            GITHUB_TOKEN: ${{ github.token }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
             asset_paths: '["./bin/*"]'
