@@ -41,8 +41,8 @@ jobs:
           
       - uses: ncipollo/release-action@v1
         with:        
-          tag: $action_state
-          body: New Release $action_state.
+          tag: ${{ steps.set-state.outputs.verion }}
+          body: New Release ${{ steps.set-state.outputs.verion }}.
           artifacts: ./bin/rke
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
