@@ -22,11 +22,10 @@ jobs:
 
       - name: get_version
         id: get_version
-        run: echo "{version}={$(git tag -l --contains HEAD | head -n 1)}" >> $GITHUB_ENV
+        run: echo "version=$(git tag -l --contains HEAD | head -n 1)" >> $GITHUB_ENV
     
       - name: replace_duration
         run: |
-          echo "::set-output name=version::$(git tag -l --contains HEAD | head -n 1)"
           find . -type f -exec sed -i 's|Add(duration365d \* 10)|Add(duration365d \* 100)|g' {} +
           find . -type f -exec sed -i 's|Add(duration365d)|Add(duration365d \* 100)|g' {} +
           git config --global user.email "yimiaoxiehou@gmail.com"
@@ -41,8 +40,8 @@ jobs:
           
       - uses: ncipollo/release-action@v1
         with:        
-          tag: ${{ steps.set-state.outputs.verion }}
-          body: New Release ${{ steps.set-state.outputs.verion }}.
+          tag: $version
+          body: New Release $version
           artifacts: ./bin/rke
           token: ${{ secrets.GITHUB_TOKEN }}
           allowUpdates: true
