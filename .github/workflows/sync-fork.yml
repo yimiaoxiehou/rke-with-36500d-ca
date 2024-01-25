@@ -1,0 +1,27 @@
+# .github/workflows/sync.yml
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '* * */5 * *' # 每24小时触发, 对于一些更新不那么频繁的项目可以设置为每天一次, 低碳一点
+  workflow_dispatch: # on button click
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v2
+        with:
+          ref: release/v1.5
+          persist-credentials: false
+
+      - name: Sync upstream changes
+        id: sync
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
+        with:
+          target_sync_branch: release/v1.5
+          # REQUIRED 'target_repo_token' exactly like this!
+          target_repo_token: ${{ secrets.WORKFLOW_RW_TOKEN }}
+          upstream_sync_branch: release/v1.5 
+          upstream_sync_repo: rancher/rke
