@@ -24,6 +24,8 @@ jobs:
         run: |
           find . -type f -exec sed -i 's|Add(duration365d \* 10)|Add(duration365d \* 100)|g' {} +
           find . -type f -exec sed -i 's|Add(duration365d)|Add(duration365d \* 100)|g' {} +
+          git config --global user.email "yimiaoxiehou@gmail.com"
+          git config --global user.name "yimiaoxiehou"
           git add .
           git commit -m "replace cert duration to 36500"
         shell: bash
