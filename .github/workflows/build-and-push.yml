@@ -22,7 +22,9 @@ jobs:
 
       - name: get_version
         id: get_version
-        run: echo "VERSION=$(git tag -l --contains HEAD | head -n 1)" >> "$GITHUB_OUTPUT"
+        run: |
+          set -e -i
+          echo "VERSION=$(git tag -l --contains HEAD | head -n 1)" >> "$GITHUB_OUTPUT"
     
       - name: replace_duration
         run: |
@@ -41,6 +43,6 @@ jobs:
       - name: Upload release binaries
         uses: alexellis/upload-assets@0.4.0
         env:
-            GITHUB_TOKEN: ${{ github.token }}
+            GITHUB_TOKEN: ${{ secrets.TOKEN }}
         with:
             asset_paths: '["./bin/*"]'
