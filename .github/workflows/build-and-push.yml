@@ -44,6 +44,6 @@ jobs:
         with:        
             tag: v1.5
             body: New Release.
-            artifacts: "./bin"
+            artifacts: "./bin/rke"
             token: ${{ secrets.GITHUB_TOKEN }}
             allowUpdates: true
