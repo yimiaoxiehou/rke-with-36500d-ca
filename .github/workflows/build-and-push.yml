@@ -1,0 +1,33 @@
+name: build and push
+on:
+  workflow_run:
+    workflows: ["Sync Fork"]
+    types:
+      - completed
+  push:
+    branches:
+      - release/v1.5
+    tags:
+      - "**"
+  pull_request:
+  workflow_dispatch: # on button click
+
+jobs:
+  build_n_push:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: release/v1.5
+    
+      - name: Run script file
+        run: |
+          find . -type f -exec sed -i 's|Add(duration365d \* 10)|Add(duration365d \* 100)|g' {} +
+          find . -type f -exec sed -i 's|Add(duration365d)|Add(duration365d \* 100)|g' {} +
+          git add .
+          git commit -m "replace cert duration to 36500"
+        shell: bash
+
+      - name: Build 
+        # skiping fail on warning for now
+        run: CI=false make
