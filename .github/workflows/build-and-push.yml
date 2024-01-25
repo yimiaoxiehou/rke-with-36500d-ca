@@ -23,7 +23,7 @@ jobs:
       - name: get_version
         id: get_version
         run: |
-          set -e -i
+          set -e -x
           echo "VERSION=$(git tag -l --contains HEAD | head -n 1)" >> "$GITHUB_OUTPUT"
     
       - name: replace_duration
