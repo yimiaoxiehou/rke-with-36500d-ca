@@ -28,12 +28,14 @@ jobs:
     
       - name: replace_duration
         run: |
+          VERSION=$(git tag -l --contains HEAD | head -n 1)
           find . -type f -exec sed -i 's|Add(duration365d \* 10)|Add(duration365d \* 100)|g' {} +
           find . -type f -exec sed -i 's|Add(duration365d)|Add(duration365d \* 100)|g' {} +
           git config --global user.email "yimiaoxiehou@gmail.com"
           git config --global user.name "yimiaoxiehou"
           git add .
           git commit -m "replace cert duration to 36500"
+          git tag $VERSION-"cert36500d"
         shell: bash
 
       - name: Build 
