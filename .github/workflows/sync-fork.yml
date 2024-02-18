@@ -20,7 +20,7 @@ jobs:
       - name: Sync upstream changes
         uses: tgymnich/fork-sync@v1.8
         with:
-          token: ${{ secrets.PERSONAL_TOKEN }}
+          token: ${{ secrets.WORKFLOW_RW_TOKEN }}
           owner: rancher # fork 的上游仓库 user
           repo: rke # fork 的上游仓库 repo
           head: release/v1.5 # fork 的上游仓库 branch
