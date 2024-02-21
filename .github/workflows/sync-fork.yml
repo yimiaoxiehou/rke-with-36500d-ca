@@ -17,8 +17,7 @@ jobs:
           persist-credentials: false
 
 
-      - name: Sync upstream changes
-        uses: tgymnich/fork-sync@v1.8
+      - uses: tgymnich/fork-sync@v1.8
         with:
           token: ${{ secrets.WORKFLOW_RW_TOKEN }}
           owner: rancher # fork 的上游仓库 user
