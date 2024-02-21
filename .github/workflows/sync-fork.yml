@@ -13,10 +13,10 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: release/v1.5
+          参考： 发布/v1.5
       - uses: tgymnich/fork-sync@v1.8
         with:
-          token: ${{secrets.WORKFLOW_RW_TOKEN}}
+          token: ${{secrets.GITHUB_TOKEN}}
           owner: rancher # fork 的上游仓库 user
           repo: rke # fork 的上游仓库 repo
           head: release/v1.5 # fork 的上游仓库 branch
