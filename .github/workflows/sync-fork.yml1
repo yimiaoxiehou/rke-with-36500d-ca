@@ -1,0 +1,24 @@
+# .github/workflows/sync.yml
+name: Sync Fork
+
+on:
+  schedule:
+    - cron: '* */24 * * *' # 每24小时触发, 对于一些更新不那么频繁的项目可以设置为每天一次, 低碳一点
+  workflow_dispatch: # on button click
+
+jobs:
+  repo-sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout target repo
+        uses: actions/checkout@v3
+        with:
+          ref: release/v1.5
+
+      - uses: tgymnich/fork-sync@v1.8
+        with:
+        token: ${{secrets.WORKFLOW_RW_TOKEN}}
+        owner: rancher # fork 的上游仓库 user
+        repo: rke # fork 的上游仓库 repo
+        head: release/v1.5 # fork 的上游仓库 branch
+        base: release/v1.5 # 本地仓库 branch
