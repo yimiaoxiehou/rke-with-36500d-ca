@@ -13,7 +13,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          参考： 发布/v1.5
+          ref: release/v1.5
       - uses: tgymnich/fork-sync@v1.8
         with:
           token: ${{secrets.GITHUB_TOKEN}}
