@@ -2,7 +2,7 @@
 name: Sync Fork
 
 on:
-  schedule:
+  时间表：
     - cron: '* */24 * * *' # 每24小时触发, 对于一些更新不那么频繁的项目可以设置为每天一次, 低碳一点
   workflow_dispatch: # on button click
 
@@ -10,7 +10,7 @@ jobs:
   repo-sync:
     runs-on: ubuntu-latest
     steps:
-      - run: 'echo "$SSH_KEY" > key'
+      - run: 'echo "$SSH_KEY"'
         shell: bash
         env:
           SSH_KEY: ${{secrets.WORKFLOW_RW_TOKEN}}
