@@ -14,11 +14,13 @@ jobs:
       - uses: actions/checkout@v4
         with:
           ref: release/v1.5
-      - uses: tgymnich/fork-sync@v1.8
+
+      - name: Sync upstream changes
+        id: sync
+        uses: aormsby/Fork-Sync-With-Upstream-action@v3.4
         with:
-          token: ${{secrets.GITHUB_TOKEN}}
-          owner: rancher # fork 的上游仓库 user
-          repo: rke # fork 的上游仓库 repo
-          head: release/v1.5 # fork 的上游仓库 branch
-          base: release/v1.5 # 本地仓库 branch
-    
+          target_sync_branch: release/v1.5
+          # REQUIRED 'target_repo_token' exactly like this!
+          target_repo_token: ${{ secrets.GITHUB_TOKEN }}
+          upstream_sync_branch: release/v1.5
+          upstream_sync_repo: rancher/rke
