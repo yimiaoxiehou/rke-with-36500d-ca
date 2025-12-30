@@ -6,7 +6,7 @@ on:
       - completed
   push:
     branches:
-      - release/v1.5
+      - release/v1.8
     tags:
       - "**"
   pull_request:
@@ -18,7 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          ref: release/v1.5
+          ref: release/v1.8
 
       - name: get_version
         id: get_version
@@ -42,7 +42,7 @@ jobs:
                   
       - uses: ncipollo/release-action@v1
         with:        
-            tag: v1.5
+            tag: v1.8
             body: New Release.
             artifacts: "./bin/rke"
             token: ${{ secrets.GITHUB_TOKEN }}
